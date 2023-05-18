@@ -56,22 +56,22 @@ class NodeBase(object):
         self.checkerboard_bmp = ICON_BRUSH_CHECKERBOARD.GetBitmap()
 
     @property
-    def NodeGraph(self):
+    def node_graph(self):
         return self.nodegraph
 
     @property
-    def NodeDatatypes(self):
+    def node_datatypes(self):
         return self.nodegraph.node_datatypes
 
     @property
-    def NodeCategories(self):
+    def node_categories(self):
         return self.nodegraph.node_categories
 
     @property
-    def NodeImageDatatype(self):
+    def node_image_datatype(self):
         return self.nodegraph.image_datatype
 
-    def Init(self, idname) -> None:
+    def init(self, idname) -> None:
         self.InitSockets()
         self.InitHeaderColor()
         self.InitSize()
@@ -84,10 +84,10 @@ class NodeBase(object):
         img.InitAlpha()
         return img.ConvertToBitmap()
 
-    def AddSocket(self, label, color, direction) -> None:
+    def ddd_socket(self, label, color, direction) -> None:
         self.ArrangeSockets()
 
-    def HitTest(self, pos: wx.Point) -> None:
+    def hit_test(self, pos: wx.Point) -> None:
         # Handle expanding the node to show thumbnail hittest
         if self.HasThumbnail() and wx.GetMouseState().LeftIsDown():
             icon_rect = self.expandicon_rect.Inflate(10, 10)
@@ -100,13 +100,13 @@ class NodeBase(object):
             if socket.HitTest(pos - self.pos):
                 return socket
 
-    def EditConnection(self, name, binding, socket):
+    def edit_connection(self, name, binding, socket):
         pass
 
-    def InitHeaderColor(self) -> None:
+    def init_header_color(self) -> None:
         self.header_color = wx.Colour(self.NodeCategories[self.GetCategory()])
 
-    def InitSockets(self) -> None:
+    def init_sockets(self) -> None:
         sockets = []
         ins = []
         outs = []
@@ -150,7 +150,7 @@ class NodeBase(object):
 
         self.sockets = sockets
 
-    def InitSize(self) -> None:
+    def init_size(self) -> None:
         # Calculate the normal size of the node to fit
         # the amount of sockets the node has. The expanded size
         # is calculated to be the normal size plus the image thumbnail size.
@@ -166,7 +166,7 @@ class NodeBase(object):
         else:
             self.SetSize(self.normal_size)
 
-    def InitLabel(self):
+    def init_label(self):
         # Number of chars to truncate from the label is based on 
         # whether there is a toggle icon taking up space on this node.
         if self.HasThumbnail() == True:
@@ -175,69 +175,69 @@ class NodeBase(object):
             chars = 20
         self.label = TruncateText(self.GetLabel(), chars)
 
-    def HasThumbnail(self) -> bool:
+    def has_thumbnail(self) -> bool:
         return self.has_thumbnail
 
-    def IsOutputNode(self) -> bool:
+    def is_output_node(self) -> bool:
         """ Override method to set whether the node is the output or not. """
         return self.is_output
 
-    def GetLabel(self) -> str:
+    def get_label(self) -> str:
         """ Get the node label. """
         return self.label
 
-    def GetCategory(self) -> str:
+    def get_category(self) -> str:
         """ Override method to set the node category. """
         return self.category
 
-    def GetIdname(self) -> str:
+    def get_id_name(self) -> str:
         return self.idname
 
-    def SetIdName(self, idname) -> None:
+    def set_id_name(self, idname) -> None:
         self.idname = idname
 
-    def GetPosition(self) -> wx.Point:
+    def get_position(self) -> wx.Point:
         return self.pos
 
-    def SetPosition(self, x: int, y: int) -> None:
+    def set_position(self, x: int, y: int) -> None:
         self.pos = wx.Point(x, y)
 
-    def GetSize(self) -> wx.Size:
+    def get_size(self) -> wx.Size:
         return (self.size[0], self.size[1])
 
-    def SetSize(self, size: wx.Size) -> None:
+    def set_size(self, size: wx.Size) -> None:
         self.size = size
 
-    def GetRect(self) -> wx.Rect:
+    def get_rect(self) -> wx.Rect:
         return wx.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
 
-    def IsSelected(self) -> bool:
+    def is_selected(self) -> bool:
         return self.selected
 
-    def SetSelected(self, selected=True) -> None:
+    def set_selected(self, selected=True) -> None:
         self.selected = selected
 
-    def IsActive(self) -> bool:
+    def is_active(self) -> bool:
         return self.active
 
-    def SetActive(self, active=True) -> None:
+    def set_active(self, active=True) -> None:
         self.active = active
 
-    def IsMuted(self) -> bool:
+    def is_muted(self) -> bool:
         return self.muted
 
-    def SetMuted(self, muted=True) -> None:
+    def set_muted(self, muted=True) -> None:
         self.muted = muted
         self.SetExpanded(False)
         self.SetSize(self.normal_size)
 
-    def IsExpanded(self) -> bool:
+    def is_expanded(self) -> bool:
         return self.expanded
 
-    def SetExpanded(self, expanded=True) -> None:
+    def set_expanded(self, expanded=True) -> None:
         self.expanded = expanded
 
-    def ToggleExpand(self) -> None:
+    def toggle_expand(self) -> None:
         if self.HasThumbnail():
             if self.IsExpanded() is True:
                 self.SetExpanded(False)

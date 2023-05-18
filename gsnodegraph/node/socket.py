@@ -40,19 +40,19 @@ class NodeSocket(object):
 
         #self.SetColorByDataType(self.datatype)
 
-    def GetWires(self) -> list:
+    def get_wires(self) -> list:
         """ Get the wires for this socket. """
         return self.wires
 
-    def SetColor(self, color) -> None:
+    def set_color(self, color) -> None:
         """ Set the socket base color based on the datatype. """
         self.color = wx.Colour(color)  
 
-    def CurrentSocketPos(self) -> wx.Point:
+    def current_socket_pos(self) -> wx.Point:
         """ Return the current coords of the node socket. """
         return self.pos + self.node.pos
       
-    def HitTest(self, pos) -> bool:
+    def hit_test(self, pos) -> bool:
         """ Returns True if the node socket was hit. """
         pnt = pos - self.pos
         distance = math.sqrt(math.pow(pnt.x, 2) + math.pow(pnt.y, 2))
@@ -61,9 +61,9 @@ class NodeSocket(object):
         if math.fabs(distance) < SOCKET_HIT_RADIUS:
             return True
 
-    def Draw(self, dc) -> None:
+    def draw(self, dc) -> None:
         """ Draw the node socket. """
-        pos = self.CurrentSocketPos()
+        pos = self.current_socket_pos()
         w, h = self.tdc.GetTextExtent(self.label)
 
         # Set the socket color

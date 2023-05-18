@@ -34,11 +34,11 @@ class NodeWire(object):
         self.dstnode = None
         self.active = False
 
-    def SetCurvature(self, curvature) -> None:
+    def set_curvature(self, curvature) -> None:
         """ Set the curvature of the wire. """
         self.curvature = curvature
 
-    def GetRect(self) -> wx.Rect:
+    def get_rect(self) -> wx.Rect:
         """ Get the bounding box rect of the wire. """
         min_x = min(self.pnt1[0], self.pnt2[0])
         min_y = min(self.pnt1[1], self.pnt2[1])
@@ -46,7 +46,7 @@ class NodeWire(object):
         rect = wx.Rect(min_x - 10, min_y, abs(size[0]) + 20, abs(size[1]))
         return rect.Inflate(2, 2)
 
-    def Draw(self, dc) -> None:
+    def draw(self, dc) -> None:
         """ Draw the node wire. """
         # Direction of wire
         sign = 1
@@ -65,7 +65,7 @@ class NodeWire(object):
 
         # If the wire has curvature, use a spline
         if self.curvature > 0:
-            pnts = []
+            pnts = list()
             pnts.append(self.pnt1)
             pnts.append(self.pnt1 + wx.Point(curvature * sign, 0))
             pnts.append(self.pnt2 - wx.Point(curvature * sign, 0))
